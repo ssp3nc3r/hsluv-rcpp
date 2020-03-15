@@ -10,6 +10,14 @@ using namespace Rcpp;
 #include <float.h>
 #include <math.h>
 
+std::string rgb2hex(int r, int g, int b, bool with_head) { 
+  std::stringstream ss; 
+  if (with_head) 
+    ss << "#"; 
+  ss << std::hex << (r << 16 | g << 8 | b ); 
+  return ss.str();
+}
+
 
 typedef struct Triplet_tag Triplet;
 struct Triplet_tag {
@@ -448,6 +456,20 @@ NumericVector hsluv_rgb(NumericVector hsl) {
   return out;
 }
 
+// [[Rcpp::export]]
+CharacterVector hsluv_hex(NumericVector hsl) {
+  NumericVector out(3);
+  IntegerVector outint(3);
+  CharacterVector outhex;
+
+  out = hsluv_rgb(hsl);
+  
+  for(int i = 0; i < 3; i++) {
+    outint[i] = floor(out[i] * 255 + 0.5);
+  }
+  outhex = rgb2hex(outint[0], outint[1], outint[2], true);
+  return outhex;
+}
 
 // You can include R code blocks in C++ files processed with sourceCpp
 // (useful for testing and development). The R code will be automatically 
@@ -456,5 +478,6 @@ NumericVector hsluv_rgb(NumericVector hsl) {
 
 /*** R
 hsluv_rgb(c(200, 50, 50))
+hsluv_hex(c(200, 50, 50))
 */
 
