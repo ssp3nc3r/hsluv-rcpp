@@ -456,20 +456,34 @@ NumericVector hsluv_rgb(NumericVector hsl) {
   return out;
 }
 
+
 // [[Rcpp::export]]
-CharacterVector hsluv_hex(NumericVector hsl) {
+CharacterVector hsluv_hex(NumericVector h, NumericVector s, NumericVector l) {
+  NumericVector hsl(3);
   NumericVector out(3);
   IntegerVector outint(3);
-  CharacterVector outhex;
-
-  out = hsluv_rgb(hsl);
+  CharacterVector outhex( h.length() );
   
-  for(int i = 0; i < 3; i++) {
-    outint[i] = floor(out[i] * 255 + 0.5);
+  for(int j=0; j < h.length(); ++j) {
+    hsl[0] = h[j]; 
+    hsl[1] = s[j]; 
+    hsl[2] = l[j]; 
+    
+    out = hsluv_rgb(hsl);
+    
+    for(int i = 0; i < 3; i++) {
+      outint[i] = floor(out[i] * 255 + 0.5);
+    }
+    
+    outhex[j] = (outint[0] == 0 & outint[1] == 0 & outint[2] == 0) ? 
+      "#000000" : 
+      rgb2hex(outint[0], outint[1], outint[2], true);
+    
   }
-  outhex = rgb2hex(outint[0], outint[1], outint[2], true);
+
   return outhex;
 }
+
 
 // You can include R code blocks in C++ files processed with sourceCpp
 // (useful for testing and development). The R code will be automatically 
@@ -478,6 +492,6 @@ CharacterVector hsluv_hex(NumericVector hsl) {
 
 /*** R
 hsluv_rgb(c(200, 50, 50))
-hsluv_hex(c(200, 50, 50))
+hsluv_hex(c(0, 100, 200), c(0, 50, 50), c(0, 50, 50))
 */
 
