@@ -18,7 +18,7 @@ devtools::install_github("ssp3nc3r/hsluv-rcpp", ref = "master")
 Once the package is installed, the functions can be used to map data to perceptually uniform color, like so:
 
 ```
-library(HSLuv); library(ggplot2)
+library(HSLuv)
 
 # Create sample data encoded as hue, saturation, luminance
 df <- expand.grid(H = c(20, 290),
