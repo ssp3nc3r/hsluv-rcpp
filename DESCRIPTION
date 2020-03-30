@@ -1,0 +1,11 @@
+Package: HSLuv
+Type: Package
+Title: Converts HSLuv to RGB and Hex
+Version: 0.0.1
+Date: 2020-03-29
+Author: Scott Spencer
+Maintainer: Scott Spencer <spencer.sa@gmail.com>
+Description: HSLuv converts human-friendly attributes about color to computer RGB values, either as separate RGB or as hex code.
+License: GPL (>= 3)
+Imports: Rcpp (>= 1.0.4)
+LinkingTo: Rcpp
