@@ -7,7 +7,7 @@ HSLuv is a human-friendly way to describe hue, saturation, and luminance --- thr
 
 ## Installation
 
-To install, you will need a working toolchain on your computer for compiling C++ code, and the R package devtools installed. Once those are working, simply run the following code in an R session:
+To install, you will *need a working toolchain on your computer for compiling C++ code*, and the R package devtools installed. Once those are working, simply run the following code in an R session:
 
 ```
 devtools::install_github("ssp3nc3r/hsluv-rcpp", ref = "master")
